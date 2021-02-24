@@ -36,11 +36,15 @@ async function runDouyin(shareUrl) {
   // 3.最后通过uri参数来调用视频下载接口
   const uriId = videoJson.item_list[0].video.play_addr.uri;
   const share_title = videoJson.item_list[0].share_info.share_title;
+  const videoPoster = videoJson.item_list[0].video.dynamic_cover.url_list[0]
+  const avatar = videoJson.item_list[0].author.avatar_larger.url_list[0]
+  const authorName = videoJson.item_list[0].author.nickname
   const noWatermarkUrl = `https://aweme.snssdk.com/aweme/v1/play/?video_id=${uriId}&ratio=720p&line=0`;
   const { data: videoStream } = await request(noWatermarkUrl, 'stream');
-  return { videoStream, share_title };
+  return { videoStream, share_title,videoPoster,avatar,authorName };
 }
 
 module.exports = {
   runDouyin,
+  request
 };
