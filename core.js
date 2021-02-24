@@ -39,8 +39,8 @@ async function runDouyin(shareUrl) {
   const videoPoster = videoJson.item_list[0].video.dynamic_cover.url_list[0]
   const avatar = videoJson.item_list[0].author.avatar_larger.url_list[0]
   const authorName = videoJson.item_list[0].author.nickname
-  const noWatermarkUrl = `https://aweme.snssdk.com/aweme/v1/play/?video_id=${uriId}&ratio=720p&line=0`;
-  const { data: videoStream } = await request(noWatermarkUrl, 'stream');
+  const videoLink = videoJson.item_list[0].video.play_addr.url_list[0].replace('v1/playwm','v1/play')
+  const { data: videoStream } = await request(videoLink, 'stream');
   return { videoStream, share_title,videoPoster,avatar,authorName };
 }
 
